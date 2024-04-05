@@ -12,6 +12,15 @@
   <:col :let={user} label="Last name"><%= user.last_name %></:col>
   <:col :let={user} label="Email"><%= user.email %></:col>
   <:col :let={user} label="Role"><%= user.role %></:col>
+  <:col :let={user} label="Job Title"><%= user.job_title %></:col>
+  <:col :let={user} label="About"><%= user.about %></:col>
+  <:col :let={user} label="Status">
+    <%= if user.status == true do %>
+      ACTIVE
+    <% else %>
+      INACTIVE
+    <% end %>
+  </:col>
   <:action :let={user}>
     <div class="sr-only">
       <.link navigate={~p"/users/#{user}"}>Show</.link>
