@@ -4,6 +4,11 @@ defmodule MiniVikingWeb.UserController do
   alias MiniViking.Accounts
   alias MiniViking.Accounts.User
 
+  def index(conn, %{"role" => role}) do
+    users = Accounts.list_users_by_role(role)
+    render(conn, :index, users: users)
+  end
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, :index, users: users)
