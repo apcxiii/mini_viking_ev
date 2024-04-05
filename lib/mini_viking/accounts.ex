@@ -86,7 +86,9 @@ defmodule MiniViking.Accounts do
 
   """
   def delete_user(%User{} = user) do
-    Repo.delete(user)
+    user
+    |> User.changeset(%{"status" => false})
+    |> Repo.update()
   end
 
   @doc """
@@ -100,5 +102,19 @@ defmodule MiniViking.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  @doc """
+  Returns the list of users filtered by role string.
+
+  ## Examples
+
+      iex> list_users_by_role("admin")
+      [%User{}, ...]
+
+  """
+  def list_users_by_role(role) do
+    query = from u in User, where: u.role == ^role
+    Repo.all(query)
   end
 end
